@@ -74,6 +74,14 @@ main{display:grid; grid-template-columns:minmax(0,2fr) minmax(340px,1fr); min-he
 .media figure{margin:0; display:flex; flex-direction:column; gap:4px}
 .media video{display:block; width:100%; height:auto; aspect-ratio:16/9; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
 .media figcaption{font-size:12px; color:var(--muted)}
+.goto{margin-top:16px; display:flex; flex-direction:column; gap:8px}
+.goto h3{margin:0; font-size:15px; font-weight:700}
+.gobtn{display:flex; align-items:center; justify-content:space-between; gap:10px; text-decoration:none; color:var(--ink); border:1.5px dashed var(--muted); border-radius:10px; padding:10px 12px; background:var(--surface)}
+.gobtn:hover{border-style:solid; border-color:var(--flow)}
+.gobtn:focus-visible{outline:2px solid var(--flow); outline-offset:2px}
+.gobtn small{display:block; font-size:12px; color:var(--muted)}
+.gobtn b{font-size:14.5px}
+.gobtn .arr{flex:none; font-weight:700; color:var(--flow)}
 .viewer{display:flex; flex-direction:column; flex:1; min-height:0; background:var(--bg)}
 .vhead{display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--line)}
 .vhead .vt{flex:1; min-width:0}
@@ -309,7 +317,8 @@ const PART = {
      points:['업무담당이 부서를 만들고 → 담임이 학생을 배정하고 → 담당교사가 출석·누가기록·특기사항을 씀','학생부 자료가 있는 부서는 이름·구분을 고칠 수 없음(자료 삭제 후 수정)'],
      leaves:[
       {id:'s2a', label:'부서 만들기·담당교사', exit:true, tag:'Part 1', pages:'739–745',
-       points:['{전년도부서･반복사} 또는 {행추가} → 부서명·부서구분 → {담당교사추가} → {저장}','분반은 부서명을 같게, ‘부서반 명’으로 구분(1·2학년과 3학년 함께 운영할 때)','교무자료권한승인관리 {동아리활동}탭에서 담당교사 {승인요청}','부서명 공백 불가, 부서반은 학생부에 기록되지 않음']},
+       points:['{전년도부서･반복사} 또는 {행추가} → 부서명·부서구분 → {담당교사추가} → {저장}','분반은 부서명을 같게, ‘부서반 명’으로 구분(1·2학년과 3학년 함께 운영할 때)','교무자료권한승인관리 {동아리활동}탭에서 담당교사 {승인요청}','부서명 공백 불가, 부서반은 학생부에 기록되지 않음'],
+       goto:[{p:1,id:'s3f',part:'학교업무분장',sec:'S3',label:'교무자료권한 승인관리'}]},
       {id:'s2b', label:'학생 부서 배정(담임)', pages:'746–749', path:'학급담임-학생생활-창의적체험활동-동아리활동관리-부서배정',
        points:['학생 선택 → 동아리부서 선택 → {저장}','학기 중 변경은 기존 부서에 둔 채 새 부서에 추가 배정(기록은 부서별로 모두)','삭제는 ‘부서배정수’ 또는 ‘배정학생수’ 숫자를 눌러 {삭제}(누가기록 ‘Y’면 기록부터 삭제)','반별 부서 일괄배정: {동아리일괄배정서식내려받기} → 학생별 부서 작성 → 업로드 → {저장}(학년·반·번호·성명·학생개인번호·부서 정합성, 교육과정·출결 수강생 편성 검증)'],
        upd:{when:'전 학년', what:['동아리 부서 배정을 엑셀로 한꺼번에 업로드']}},
@@ -369,7 +378,8 @@ const PART = {
       {id:'s5b', label:'단체·공동 수상 등록', pages:'806–807',
        points:['‘단체’ 선택 시 모든 학생에게 같은 상장번호','공동수상은 ‘홍길동외 3인’, 수상명 괄호에 ‘공동수상’과 인원','학년·학급 단위 단체상은 수상대장에만, 학생부에는 반영 안 함']},
       {id:'s5c', label:'성적우수자(교과우수상)', exit:true, tag:'Part 6', pages:'807–810',
-       points:['{성적우수자수상등록} → 학기·학년·산출기준·조건 → 과목 {찾기} → {조회} → 학생 선택 → {저장} → {승인요청}','학기말 성적산출 기준명과 학기말 성적산출이 끝나야 사용 가능(교과목 권한 필요)','여러 과목이면 괄호에 정식 과목명 병기, 참가대상은 ‘수강자’(인원 미입력)','동석차 제외 학생은 ‘분야’에서 과목 삭제']},
+       points:['{성적우수자수상등록} → 학기·학년·산출기준·조건 → 과목 {찾기} → {조회} → 학생 선택 → {저장} → {승인요청}','학기말 성적산출 기준명과 학기말 성적산출이 끝나야 사용 가능(교과목 권한 필요)','여러 과목이면 괄호에 정식 과목명 병기, 참가대상은 ‘수강자’(인원 미입력)','동석차 제외 학생은 ‘분야’에서 과목 삭제'],
+       goto:[{p:6,id:'s5i',part:'성적',sec:'S5',label:'과목별 성적산출'}]},
       {id:'s5d', label:'출석우수자(개근상)', pages:'810–812',
        points:['{출석우수자수상등록} → 학년·출석산출기준 {조회} → 학생 선택 → {저장} → {승인요청}','학생부에 반영된 출결 기준이므로 월출결 마감을 먼저','3년 개근상을 받으면 3학년 1년 개근상은 자동 제외']},
       {id:'s5e', label:'수상대장 오류 수정', pages:'812–813',
@@ -409,7 +419,8 @@ const PART = {
       {id:'s8b', label:'반별 일괄 기록', pages:'830–831',
        points:['{반별}탭 → {일괄입력}으로 같은 도서를 여러 학생에게','{이어쓰기}는 추가, {덮어쓰기}는 기존 기록을 지우고 새로 씀(주의)','잘못 넣은 기록은 영역 선택 → {삭제}']},
       {id:'s8c', label:'과목별 독서활동(교과)', exit:true, tag:'Part 6', pages:'832–833', path:'교과담임-성적-성적처리-과목별독서활동',
-       points:['학년·과목·강의실 {조회} → 성명 클릭해 이전 독서 확인 → 입력 → {저장}']}
+       points:['학년·과목·강의실 {조회} → 성명 클릭해 이전 독서 확인 → 입력 → {저장}'],
+       goto:[{p:6,id:'s5o',part:'성적',sec:'S5',label:'과목별 독서활동'}]}
      ]},
     {id:'S9', label:'행동특성 및 종합의견', time:'학기중·학기말', pages:'833–836',
      path:'학생생활-행동특성및종합의견-행동특성및종합의견',
@@ -643,6 +654,7 @@ function renderDetail(){
     if(d.upd) h+=`<div class="updbox"><b>2026.9.11. 기능개선${d.upd.isNew?' · 새 메뉴':''} · ${esc(d.upd.when)}</b><ul>${d.upd.what.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
     if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`)}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
+    if(d.goto&&d.goto.length) h+=`<section class="goto"><h3>다른 파트에서 할 일</h3>${d.goto.map(g=>`<a class="gobtn" href="part${g.p}.html#${g.id}"><span><small>Part ${g.p} ${esc(g.part)} · ${esc(g.sec)}</small><b>${esc(g.label)}</b></span><span class="arr">바로 가기 →</span></a>`).join('')}</section>`;
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;
     const md=(window.MEDIA||{})[n.id];
     if(md&&md.length) h+=`<section class="media"><h3>나이스 조작 화면</h3>${md.map((src,i)=>`<figure><video src="${src}.mp4" poster="${src}.jpg" controls muted loop playsinline autoplay preload="metadata"></video>${md.length>1?`<figcaption>${i+1} / ${md.length}</figcaption>`:''}</figure>`).join('')}</section>`;
@@ -815,6 +827,8 @@ async function start(){
   $('#legend').insertAdjacentHTML('afterbegin',PART.branches.map(b=>`<span><i class="sw" style="background:${BR_VAR[b.id]}"></i>${esc(b.label)}</span>`).join(''));
   if(updNodes().length) $('#legend').insertAdjacentHTML('beforeend','<span><i class="sw upd"></i>9.11 기능개선</span>');
   chips(); curFlow='f1'; drawFlow(); renderDetail(); fit(); focusFlow();
+  const goHash=()=>{ const id=decodeURIComponent(location.hash.slice(1)); if(id&&nodes[id]){ curFlow=null; drawFlow(); select(id,true); } };
+  goHash(); window.addEventListener('hashchange',goHash);
 }
 start();
 </script>

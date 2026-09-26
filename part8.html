@@ -74,6 +74,14 @@ main{display:grid; grid-template-columns:minmax(0,2fr) minmax(340px,1fr); min-he
 .media figure{margin:0; display:flex; flex-direction:column; gap:4px}
 .media video{display:block; width:100%; height:auto; aspect-ratio:16/9; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
 .media figcaption{font-size:12px; color:var(--muted)}
+.goto{margin-top:16px; display:flex; flex-direction:column; gap:8px}
+.goto h3{margin:0; font-size:15px; font-weight:700}
+.gobtn{display:flex; align-items:center; justify-content:space-between; gap:10px; text-decoration:none; color:var(--ink); border:1.5px dashed var(--muted); border-radius:10px; padding:10px 12px; background:var(--surface)}
+.gobtn:hover{border-style:solid; border-color:var(--flow)}
+.gobtn:focus-visible{outline:2px solid var(--flow); outline-offset:2px}
+.gobtn small{display:block; font-size:12px; color:var(--muted)}
+.gobtn b{font-size:14.5px}
+.gobtn .arr{flex:none; font-weight:700; color:var(--flow)}
 .viewer{display:flex; flex-direction:column; flex:1; min-height:0; background:var(--bg)}
 .vhead{display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--line)}
 .vhead .vt{flex:1; min-width:0}
@@ -335,7 +343,8 @@ const PART = {
      points:['인적사항 생성 → 반별 자료검증·마감 → 학년 전체마감 → 승인요청 순서'],
      leaves:[
       {id:'p14a', label:'마감용 인적사항 생성', exit:true, tag:'Part 3', pages:'1208',
-       points:['학년도·학년 {조회} → ‘학년’ 옆 전체 선택 → {인적사항생성}','4세대 나이스는 학적 변동(전입·전출·유예 등)을 마감 때 학생부 인적사항과 연계']},
+       points:['학년도·학년 {조회} → ‘학년’ 옆 전체 선택 → {인적사항생성}','4세대 나이스는 학적 변동(전입·전출·유예 등)을 마감 때 학생부 인적사항과 연계'],
+       goto:[{p:3,id:'s1a',part:'학적',sec:'S1',label:'인적·학적사항 확인'}]},
       {id:'p14b', label:'자료검증·반별 마감', hub:true, pages:'1209, 1211',
        points:['학급 선택 → {자료검증} → 반별등록의 검증대상제외 확인 → {마감}','반 전원이 건강검진·신체능력·신체발달을 갖춰야 {자료검증}과 {미리보기} 사이에 [마감] 탭이 열림','자료를 낼 수 없는 학생은 먼저 ‘자료검증대상제외’ 처리']},
       {id:'p14c', label:'전체마감·승인요청', pages:'1210–1211',
@@ -614,6 +623,7 @@ function renderDetail(){
     if(d.upd) h+=`<div class="updbox"><b>2026.9.11. 기능개선${d.upd.isNew?' · 새 메뉴':''} · ${esc(d.upd.when)}</b><ul>${d.upd.what.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
     if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`)}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
+    if(d.goto&&d.goto.length) h+=`<section class="goto"><h3>다른 파트에서 할 일</h3>${d.goto.map(g=>`<a class="gobtn" href="part${g.p}.html#${g.id}"><span><small>Part ${g.p} ${esc(g.part)} · ${esc(g.sec)}</small><b>${esc(g.label)}</b></span><span class="arr">바로 가기 →</span></a>`).join('')}</section>`;
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;
     const md=(window.MEDIA||{})[n.id];
     if(md&&md.length) h+=`<section class="media"><h3>나이스 조작 화면</h3>${md.map((src,i)=>`<figure><video src="${src}.mp4" poster="${src}.jpg" controls muted loop playsinline autoplay preload="metadata"></video>${md.length>1?`<figcaption>${i+1} / ${md.length}</figcaption>`:''}</figure>`).join('')}</section>`;
@@ -786,6 +796,8 @@ async function start(){
   $('#legend').insertAdjacentHTML('afterbegin',PART.branches.map(b=>`<span><i class="sw" style="background:${BR_VAR[b.id]}"></i>${esc(b.label)}</span>`).join(''));
   if(updNodes().length) $('#legend').insertAdjacentHTML('beforeend','<span><i class="sw upd"></i>9.11 기능개선</span>');
   chips(); curFlow='f1'; drawFlow(); renderDetail(); fit(); focusFlow();
+  const goHash=()=>{ const id=decodeURIComponent(location.hash.slice(1)); if(id&&nodes[id]){ curFlow=null; drawFlow(); select(id,true); } };
+  goHash(); window.addEventListener('hashchange',goHash);
 }
 start();
 </script>

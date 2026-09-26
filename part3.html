@@ -74,6 +74,14 @@ main{display:grid; grid-template-columns:minmax(0,2fr) minmax(340px,1fr); min-he
 .media figure{margin:0; display:flex; flex-direction:column; gap:4px}
 .media video{display:block; width:100%; height:auto; aspect-ratio:16/9; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
 .media figcaption{font-size:12px; color:var(--muted)}
+.goto{margin-top:16px; display:flex; flex-direction:column; gap:8px}
+.goto h3{margin:0; font-size:15px; font-weight:700}
+.gobtn{display:flex; align-items:center; justify-content:space-between; gap:10px; text-decoration:none; color:var(--ink); border:1.5px dashed var(--muted); border-radius:10px; padding:10px 12px; background:var(--surface)}
+.gobtn:hover{border-style:solid; border-color:var(--flow)}
+.gobtn:focus-visible{outline:2px solid var(--flow); outline-offset:2px}
+.gobtn small{display:block; font-size:12px; color:var(--muted)}
+.gobtn b{font-size:14.5px}
+.gobtn .arr{flex:none; font-weight:700; color:var(--flow)}
 .viewer{display:flex; flex-direction:column; flex:1; min-height:0; background:var(--bg)}
 .vhead{display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--line)}
 .vhead .vt{flex:1; min-width:0}
@@ -344,7 +352,8 @@ const PART = {
       {id:'s2c', label:'상신·학적반영', pages:'276–283, 288–291',
        points:['상신 메뉴에서 {결재자지정} → {상신}','학적반영에서 자료 선택 → {학적반영}','당일 처리가 급하면 {기본학적}만 먼저 받고 나머지는 나중에 {자료이관}','추가 도착 자료를 {자료이관}하면 전입 후 새로 쓴 자료는 지워짐','{반영일자수정}하면 해당 월 출결 재마감']},
       {id:'s2d', label:'전입생 수강과목 편성', exit:true, tag:'Part 2', pages:'284–287',
-       points:['학적반영 후 {수강과목편성}을 하지 않으면 출결·성적 처리 불가','1·2학년은 전출교 과목과 매칭(과목 출석률)','매칭 과목이 없으면 ‘비매칭과목 출결 결과 산출’','복학·재입학·귀국 등은 ‘해외귀국/복학/학기중 신입학 인정출결산출’']},
+       points:['학적반영 후 {수강과목편성}을 하지 않으면 출결·성적 처리 불가','1·2학년은 전출교 과목과 매칭(과목 출석률)','매칭 과목이 없으면 ‘비매칭과목 출결 결과 산출’','복학·재입학·귀국 등은 ‘해외귀국/복학/학기중 신입학 인정출결산출’'],
+       goto:[{p:2,id:'s5f',part:'교육과정',sec:'S5',label:'타학년·전입생 수강과목'}]},
       {id:'s2e', label:'이전 자료 관리', pages:'292–309', path:'학적-전입관리-전입자료관리',
        points:['정기시험·수행평가: {이전학교성적보기} 후 전입교 규정대로 환산 입력','학기말 성적 수정은 공문 근거로 {과목추가} → {승인요청}','세특·독서활동: {이전학교자료보기} → {이전학교자료가져오기}','이전 출결자료 수정, 귀국·탈북 편입생 이전 인정학점(학기당 최대 32)']},
       {id:'s2f', label:'통폐합 일괄 전입', pages:'310–311', path:'학적-전입관리-일괄전입생반배정및학적반영',
@@ -387,7 +396,8 @@ const PART = {
        points:['{추가} → {학생찾기} → 변동일자·구분·사유·학적특기사항 → {저장}','{학교생활기록부생성} → {승인요청} → {학적반영}','2027 1학기부터: {학교생활기록부생성} 뒤 학생부 검증 팝업으로 오류 확인 → {마감 및 학적반영}','{학적반영취소}로 다시 재학생으로 돌릴 수 있음(정정대장 이력은 유지, 진행 중인 정정이 있으면 확인 후 취소)','2차 정기시험 이후 중단이면 최소성취수준 처리 후 {최소성취수준보장지도성적학생부반영}','학업중단 학생 정보 수정은 정정대장의 ‘재학아닌학생’'],
        upd:{later:true, when:'2027학년도 1학기부터', what:['학생부 생성 후 검증 팝업 → {마감 및 학적반영}으로 절차 변경','학적반영 다음 날부터 당해 서술형 항목 공개, 학업중단일 이후 자료 정정 가능(Part 7)']}},
       {id:'s5b', label:'특수교육대상 장기결석', exit:true, tag:'Part 4', pages:'353–354',
-       points:['먼저 개별화교육계획에서 개별화교육대상자로 등록','이후 ‘장기결석에 따른 정원 외 학적관리’로 처리(의무교육 학적 용어 사용)','유예·면제는 특수교육운영위원회 심의']}
+       points:['먼저 개별화교육계획에서 개별화교육대상자로 등록','이후 ‘장기결석에 따른 정원 외 학적관리’로 처리(의무교육 학적 용어 사용)','유예·면제는 특수교육운영위원회 심의'],
+       goto:[{p:4,id:'s1a',part:'개별화교육계획',sec:'S1',label:'개별화교육대상자 등록'}]}
      ]}
    ]},
   {id:'C', side:'right', label:'출결', desc:'교과교사의 교시별 출결에서 담임의 일·월 마감, 학생부 출결상황까지 이어지는 가지입니다. Section 7·8·18.',
@@ -412,7 +422,8 @@ const PART = {
       {id:'s7d', label:'위탁·현장실습·정규 외 출결', pages:'401–408',
        points:['위탁·현장실습생은 {수강과목매칭}으로 재적교 과목과 매칭','174학점 초과(방과후·주말) 공동교육과정은 총·현재 수업시수, 결과시수를 수기 입력']},
       {id:'s7e', label:'학기별 과목 마감·전체 마감', exit:true, tag:'Part 6', pages:'409–413',
-       points:['과목교시마감수·반별일출결마감수·시간표총수업수가 모두 같아야 {학기별과목마감}','마감해야 최소성취수준보장지도 이수관리에서 출결 이수 판단','모든 과목 마감 후 과목 전체 마감(이후 취소·변경 불가)','창체는 졸업 시점 이수 처리라 학기 마감에서 제외']}
+       points:['과목교시마감수·반별일출결마감수·시간표총수업수가 모두 같아야 {학기별과목마감}','마감해야 최소성취수준보장지도 이수관리에서 출결 이수 판단','모든 과목 마감 후 과목 전체 마감(이후 취소·변경 불가)','창체는 졸업 시점 이수 처리라 학기 마감에서 제외'],
+       goto:[{p:6,id:'s5p',part:'성적',sec:'S5',label:'최소 성취수준 보장지도 대상'},{p:6,id:'s5q',part:'성적',sec:'S5',label:'보장지도 이수·학점반영·마감'}]}
      ]},
     {id:'S8', label:'출결(학급담임교사)', time:'연중', pages:'414–449',
      who:'학급담임교사, 출결 업무담당자',
@@ -790,6 +801,7 @@ function renderDetail(){
     if(d.upd) h+=`<div class="updbox"><b>2026.9.11. 기능개선${d.upd.isNew?' · 새 메뉴':''} · ${esc(d.upd.when)}</b><ul>${d.upd.what.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
     if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`)}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
+    if(d.goto&&d.goto.length) h+=`<section class="goto"><h3>다른 파트에서 할 일</h3>${d.goto.map(g=>`<a class="gobtn" href="part${g.p}.html#${g.id}"><span><small>Part ${g.p} ${esc(g.part)} · ${esc(g.sec)}</small><b>${esc(g.label)}</b></span><span class="arr">바로 가기 →</span></a>`).join('')}</section>`;
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;
     const md=(window.MEDIA||{})[n.id];
     if(md&&md.length) h+=`<section class="media"><h3>나이스 조작 화면</h3>${md.map((src,i)=>`<figure><video src="${src}.mp4" poster="${src}.jpg" controls muted loop playsinline autoplay preload="metadata"></video>${md.length>1?`<figcaption>${i+1} / ${md.length}</figcaption>`:''}</figure>`).join('')}</section>`;
@@ -962,6 +974,8 @@ async function start(){
   $('#legend').insertAdjacentHTML('afterbegin',PART.branches.map(b=>`<span><i class="sw" style="background:${BR_VAR[b.id]}"></i>${esc(b.label)}</span>`).join(''));
   if(updNodes().length) $('#legend').insertAdjacentHTML('beforeend','<span><i class="sw upd"></i>9.11 기능개선</span>');
   chips(); curFlow='f1'; drawFlow(); renderDetail(); fit(); focusFlow();
+  const goHash=()=>{ const id=decodeURIComponent(location.hash.slice(1)); if(id&&nodes[id]){ curFlow=null; drawFlow(); select(id,true); } };
+  goHash(); window.addEventListener('hashchange',goHash);
 }
 start();
 </script>

@@ -74,6 +74,14 @@ main{display:grid; grid-template-columns:minmax(0,2fr) minmax(340px,1fr); min-he
 .media figure{margin:0; display:flex; flex-direction:column; gap:4px}
 .media video{display:block; width:100%; height:auto; aspect-ratio:16/9; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
 .media figcaption{font-size:12px; color:var(--muted)}
+.goto{margin-top:16px; display:flex; flex-direction:column; gap:8px}
+.goto h3{margin:0; font-size:15px; font-weight:700}
+.gobtn{display:flex; align-items:center; justify-content:space-between; gap:10px; text-decoration:none; color:var(--ink); border:1.5px dashed var(--muted); border-radius:10px; padding:10px 12px; background:var(--surface)}
+.gobtn:hover{border-style:solid; border-color:var(--flow)}
+.gobtn:focus-visible{outline:2px solid var(--flow); outline-offset:2px}
+.gobtn small{display:block; font-size:12px; color:var(--muted)}
+.gobtn b{font-size:14.5px}
+.gobtn .arr{flex:none; font-weight:700; color:var(--flow)}
 .viewer{display:flex; flex-direction:column; flex:1; min-height:0; background:var(--bg)}
 .vhead{display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--line)}
 .vhead .vt{flex:1; min-width:0}
@@ -332,7 +340,8 @@ const PART = {
        path:'{시스템관리}사용자-사용자관리-전체사용자관리',
        points:['부서관리에서 단위업무 ‘공통관리-시스템관리’ 등록','부서원 등록 후 ‘전체사용자관리’ 메뉴와 관리 권한 부여','전체사용자관리에서 해당 사용자 ‘행공’ 체크 → {저장}']},
       {id:'s3x', label:'담임·교과·동아리 편성', exit:true, tag:'Part 2·5', pages:'8–9, 34',
-       points:['학급담임: [교육과정-학급담임편성관리-학급담임편성관리]','교과담당: [교육과정-편제및과목개설관리-편제및과목개설관리-과목개설]','동아리: [학생생활-창의적체험활동-동아리활동관리-부서만들기]','계약직이 퇴직 후 재계약하면 각 메뉴의 {자료권한재등록} 사용']}
+       points:['학급담임: [교육과정-학급담임편성관리-학급담임편성관리]','교과담당: [교육과정-편제및과목개설관리-편제및과목개설관리-과목개설]','동아리: [학생생활-창의적체험활동-동아리활동관리-부서만들기]','계약직이 퇴직 후 재계약하면 각 메뉴의 {자료권한재등록} 사용'],
+       goto:[{p:2,id:'s3a',part:'교육과정',sec:'S3',label:'담임 등록'},{p:2,id:'s5c',part:'교육과정',sec:'S5',label:'과목개설'},{p:5,id:'s2a',part:'학생생활',sec:'S2',label:'부서 만들기·담당교사'}]}
      ]},
     {id:'S4', label:'담임업무기준 관리', time:'학년초', pages:'36–37',
      who:'학교업무분장관리 담당자(권한관리 담당자)',
@@ -401,7 +410,8 @@ const PART = {
       {id:'s8b', label:'관리자: 승인', pages:'54–55', path:'학교정보-2차인증-2차인증사용자관리',
        points:['등록요청 교원 선택 → {승인}(일괄 선택 가능)','2차인증현황조회, 2차인증이력조회로 점검']},
       {id:'s8x', label:'세특 입력 메뉴', exit:true, tag:'Part 6', pages:'55',
-       points:['[교과담임-성적-성적처리-과목별세부능력및특기사항]','[교과담임-성적-성적처리-개인별세부능력및특기사항]','[학급담임-성적-성적처리-편입/복학생세부능력및특기사항관리]']}
+       points:['[교과담임-성적-성적처리-과목별세부능력및특기사항]','[교과담임-성적-성적처리-개인별세부능력및특기사항]','[학급담임-성적-성적처리-편입/복학생세부능력및특기사항관리]'],
+       goto:[{p:6,id:'s5m',part:'성적',sec:'S5',label:'과목별 세특'},{p:6,id:'s5n',part:'성적',sec:'S5',label:'개인별·편입복학 세특'}]}
      ]}
    ]}
   ],
@@ -596,6 +606,7 @@ function renderDetail(){
     if(d.upd) h+=`<div class="updbox"><b>2026.9.11. 기능개선${d.upd.isNew?' · 새 메뉴':''} · ${esc(d.upd.when)}</b><ul>${d.upd.what.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
     if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`)}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
+    if(d.goto&&d.goto.length) h+=`<section class="goto"><h3>다른 파트에서 할 일</h3>${d.goto.map(g=>`<a class="gobtn" href="part${g.p}.html#${g.id}"><span><small>Part ${g.p} ${esc(g.part)} · ${esc(g.sec)}</small><b>${esc(g.label)}</b></span><span class="arr">바로 가기 →</span></a>`).join('')}</section>`;
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;
     const md=(window.MEDIA||{})[n.id];
     if(md&&md.length) h+=`<section class="media"><h3>나이스 조작 화면</h3>${md.map((src,i)=>`<figure><video src="${src}.mp4" poster="${src}.jpg" controls muted loop playsinline autoplay preload="metadata"></video>${md.length>1?`<figcaption>${i+1} / ${md.length}</figcaption>`:''}</figure>`).join('')}</section>`;
@@ -768,6 +779,8 @@ async function start(){
   $('#legend').insertAdjacentHTML('afterbegin',PART.branches.map(b=>`<span><i class="sw" style="background:${BR_VAR[b.id]}"></i>${esc(b.label)}</span>`).join(''));
   if(updNodes().length) $('#legend').insertAdjacentHTML('beforeend','<span><i class="sw upd"></i>9.11 기능개선</span>');
   chips(); curFlow='f1'; drawFlow(); renderDetail(); fit(); focusFlow();
+  const goHash=()=>{ const id=decodeURIComponent(location.hash.slice(1)); if(id&&nodes[id]){ curFlow=null; drawFlow(); select(id,true); } };
+  goHash(); window.addEventListener('hashchange',goHash);
 }
 start();
 </script>

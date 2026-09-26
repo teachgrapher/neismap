@@ -74,6 +74,14 @@ main{display:grid; grid-template-columns:minmax(0,2fr) minmax(340px,1fr); min-he
 .media figure{margin:0; display:flex; flex-direction:column; gap:4px}
 .media video{display:block; width:100%; height:auto; aspect-ratio:16/9; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
 .media figcaption{font-size:12px; color:var(--muted)}
+.goto{margin-top:16px; display:flex; flex-direction:column; gap:8px}
+.goto h3{margin:0; font-size:15px; font-weight:700}
+.gobtn{display:flex; align-items:center; justify-content:space-between; gap:10px; text-decoration:none; color:var(--ink); border:1.5px dashed var(--muted); border-radius:10px; padding:10px 12px; background:var(--surface)}
+.gobtn:hover{border-style:solid; border-color:var(--flow)}
+.gobtn:focus-visible{outline:2px solid var(--flow); outline-offset:2px}
+.gobtn small{display:block; font-size:12px; color:var(--muted)}
+.gobtn b{font-size:14.5px}
+.gobtn .arr{flex:none; font-weight:700; color:var(--flow)}
 .viewer{display:flex; flex-direction:column; flex:1; min-height:0; background:var(--bg)}
 .vhead{display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--line)}
 .vhead .vt{flex:1; min-width:0}
@@ -304,7 +312,8 @@ const PART = {
      points:['교과 외에 일상생활(생활지원) 영역의 개별화교육계획을 쓰려면 영역을 따로 개설','계획을 쓰는 교사에게 개별화교육계획 메뉴와 학년반·교과목 자료권한이 있어야 함'],
      leaves:[
       {id:'s2a', label:'개별화교육 권한 받기', exit:true, tag:'Part 1', pages:'678–681',
-       points:['학교업무분장관리 담당자 지정 → 부서장·단위업무(개별화교육계획) 지정','업무관리에서 개별화교육계획 메뉴 등록과 관리 권한 선택','학년반·교과목 자료권한 등록 → 교무자료권한승인관리에서 {승인요청}']},
+       points:['학교업무분장관리 담당자 지정 → 부서장·단위업무(개별화교육계획) 지정','업무관리에서 개별화교육계획 메뉴 등록과 관리 권한 선택','학년반·교과목 자료권한 등록 → 교무자료권한승인관리에서 {승인요청}'],
+       goto:[{p:1,id:'s2c',part:'학교업무분장',sec:'S2',label:'③ 부서장·단위업무 등록'},{p:1,id:'s2e',part:'학교업무분장',sec:'S2',label:'⑤ 메뉴·자료권한 부여'},{p:1,id:'s3f',part:'학교업무분장',sec:'S3',label:'교무자료권한 승인관리'}]},
       {id:'s2b', label:'영역 개설', pages:'682', path:'개별화교육계획영역개설관리 {영역개설}',
        points:['학년도·학기·학년 {조회} → 교사명·영역명·강의실 선택 → {저장}','강의실 목록에 특수학급이 없으면 교육과정 강의실관리에서 {행추가}로 ‘특수학급’ 등록']},
       {id:'s2c', label:'영역 조회·삭제', pages:'682',
@@ -345,7 +354,8 @@ const PART = {
      points:['전출교 개별화교육계획을 받아 반영하거나, 전입 이후 분량을 추가 입력하고 승인받음','결재가 끝난 자료는 개별화교육계획 관리 메뉴에서 필요 시 수정'],
      leaves:[
       {id:'s5x', label:'전입 학적처리·자료 수신', exit:true, tag:'Part 3', pages:'691–692, 708',
-       points:['먼저 개별화교육대상자로 등록해야 계획이 활성화됨','전입교가 전입 등록·자료요청 → 전출교가 개별화교육계획을 포함해 {전출자료보내기}','특수교육법상 전출교는 14일 이내에 송부']},
+       points:['먼저 개별화교육대상자로 등록해야 계획이 활성화됨','전입교가 전입 등록·자료요청 → 전출교가 개별화교육계획을 포함해 {전출자료보내기}','특수교육법상 전출교는 14일 이내에 송부'],
+       goto:[{p:3,id:'s2a',part:'학적',sec:'S2',label:'전입생 등록'},{p:3,id:'s4c',part:'학적',sec:'S4',label:'전출자료 전송·상신'}]},
       {id:'s5a', label:'학기별 계획·평가 추가', pages:'701–703', path:'전입생개별화교육추가-전입생개별화교육추가',
        points:['학년·반·입력구분·과목 {조회} → 학생 선택','{학기별개별화교육계획}탭: 현행수준·학기목표 → {저장}','{학기별개별화교육평가}탭: 평가 입력(계획이 먼저 있어야 함)']},
       {id:'s5b', label:'월별 계획·평가 추가', pages:'703–704',
@@ -568,6 +578,7 @@ function renderDetail(){
     if(d.upd) h+=`<div class="updbox"><b>2026.9.11. 기능개선${d.upd.isNew?' · 새 메뉴':''} · ${esc(d.upd.when)}</b><ul>${d.upd.what.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
     if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`)}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
+    if(d.goto&&d.goto.length) h+=`<section class="goto"><h3>다른 파트에서 할 일</h3>${d.goto.map(g=>`<a class="gobtn" href="part${g.p}.html#${g.id}"><span><small>Part ${g.p} ${esc(g.part)} · ${esc(g.sec)}</small><b>${esc(g.label)}</b></span><span class="arr">바로 가기 →</span></a>`).join('')}</section>`;
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;
     const md=(window.MEDIA||{})[n.id];
     if(md&&md.length) h+=`<section class="media"><h3>나이스 조작 화면</h3>${md.map((src,i)=>`<figure><video src="${src}.mp4" poster="${src}.jpg" controls muted loop playsinline autoplay preload="metadata"></video>${md.length>1?`<figcaption>${i+1} / ${md.length}</figcaption>`:''}</figure>`).join('')}</section>`;
@@ -740,6 +751,8 @@ async function start(){
   $('#legend').insertAdjacentHTML('afterbegin',PART.branches.map(b=>`<span><i class="sw" style="background:${BR_VAR[b.id]}"></i>${esc(b.label)}</span>`).join(''));
   if(updNodes().length) $('#legend').insertAdjacentHTML('beforeend','<span><i class="sw upd"></i>9.11 기능개선</span>');
   chips(); curFlow='f1'; drawFlow(); renderDetail(); fit(); focusFlow();
+  const goHash=()=>{ const id=decodeURIComponent(location.hash.slice(1)); if(id&&nodes[id]){ curFlow=null; drawFlow(); select(id,true); } };
+  goHash(); window.addEventListener('hashchange',goHash);
 }
 start();
 </script>

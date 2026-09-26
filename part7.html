@@ -74,6 +74,14 @@ main{display:grid; grid-template-columns:minmax(0,2fr) minmax(340px,1fr); min-he
 .media figure{margin:0; display:flex; flex-direction:column; gap:4px}
 .media video{display:block; width:100%; height:auto; aspect-ratio:16/9; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
 .media figcaption{font-size:12px; color:var(--muted)}
+.goto{margin-top:16px; display:flex; flex-direction:column; gap:8px}
+.goto h3{margin:0; font-size:15px; font-weight:700}
+.gobtn{display:flex; align-items:center; justify-content:space-between; gap:10px; text-decoration:none; color:var(--ink); border:1.5px dashed var(--muted); border-radius:10px; padding:10px 12px; background:var(--surface)}
+.gobtn:hover{border-style:solid; border-color:var(--flow)}
+.gobtn:focus-visible{outline:2px solid var(--flow); outline-offset:2px}
+.gobtn small{display:block; font-size:12px; color:var(--muted)}
+.gobtn b{font-size:14.5px}
+.gobtn .arr{flex:none; font-weight:700; color:var(--flow)}
 .viewer{display:flex; flex-direction:column; flex:1; min-height:0; background:var(--bg)}
 .vhead{display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--line)}
 .vhead .vt{flex:1; min-width:0}
@@ -294,11 +302,14 @@ const PART = {
       {id:'p11c', label:'항목별 반영 시점', pages:'1160–1161',
        points:['저장 즉시 반영: 학년 이력, 인적·학적사항, 자격증, 창체 이수시간·특기사항, 독서활동, 행동특성 및 종합의견','{자료반영}해야 들어감: 전공과정, 출결상황, 교과학습발달상황(세특 포함), 국가직무능력표준 이수상황','학교장 승인 뒤 반영: 수상경력, 이전학년도 학생부 정정, 온라인 대입전형자료','2학기 교과학습발달상황을 반영하면 1학기도 같이 반영됨','{교과학습발달상황 삭제}는 선택 학생의 해당 학기 성적 삭제, 이전 학년도는 정정대장으로']},
       {id:'p11d', label:'출결 마감 자료', exit:true, tag:'Part 3', pages:'1160',
-       points:['출결상황은 [학적-출결관리-반별월출결마감관리]에서 마감한 자료까지만 반영','검증 때 반별 월출결 수업일수와 학생부 수업일수를 비교함']},
+       points:['출결상황은 [학적-출결관리-반별월출결마감관리]에서 마감한 자료까지만 반영','검증 때 반별 월출결 수업일수와 학생부 수업일수를 비교함'],
+       goto:[{p:3,id:'s8c',part:'학적',sec:'S8',label:'월 출결 마감'}]},
       {id:'p11e', label:'학기말 성적 자료', exit:true, tag:'Part 6', pages:'1160',
-       points:['교과학습발달상황은 [성적-성적처리-성적산출마감관리]에서 학기말 성적처리가 끝난 자료가 반영']},
+       points:['교과학습발달상황은 [성적-성적처리-성적산출마감관리]에서 학기말 성적처리가 끝난 자료가 반영'],
+       goto:[{p:6,id:'s5l',part:'성적',sec:'S5',label:'성적산출 마감·승인'}]},
       {id:'p11f', label:'학교폭력 조치상황란', exit:true, tag:'Part 5', pages:'1161',
-       points:['2026학년도 전 학년에 ‘5.학교폭력 조치상황 관리’란 신설','대입전형자료 생성 때 이 란의 자료가 포함되고, 학생부 대입전형자료 발급 때 공개됨']}
+       points:['2026학년도 전 학년에 ‘5.학교폭력 조치상황 관리’란 신설','대입전형자료 생성 때 이 란의 자료가 포함되고, 학생부 대입전형자료 발급 때 공개됨'],
+       goto:[{p:5,id:'s10a',part:'학생생활',sec:'S10',label:'조치상황 입력'}]}
      ]},
     {id:'S12', no:'1-2', label:'자료검증', time:'학년말(대입전형자료 제공 전)', pages:'1162–1163',
      who:'학급담임교사', path:'학생부-학교생활기록부-학교생활기록부-자료검증및반마감',
@@ -413,7 +424,8 @@ const PART = {
      points:['이전 학년도 성적은 기준 학년도를 되돌려 성적을 다시 처리한 뒤 정정대장으로 반영','재학생만 가능, 재학 아닌 학생은 교과학습발달상황으로 정정'],
      leaves:[
       {id:'p26a', label:'성적 재처리', exit:true, tag:'Part 6', pages:'1178, 1187',
-       points:['‘교무/수업학년도’·‘교무/수업학기’를 정정 학년도·학기로 설정','그 학년도로 성적을 재처리한 뒤 현재 학년도로 되돌림','이 메뉴에는 과년도 성적을 재산출한 과목만 조회됨']},
+       points:['‘교무/수업학년도’·‘교무/수업학기’를 정정 학년도·학기로 설정','그 학년도로 성적을 재처리한 뒤 현재 학년도로 되돌림','이 메뉴에는 과년도 성적을 재산출한 과목만 조회됨'],
+       goto:[{p:6,id:'s5i',part:'성적',sec:'S5',label:'과목별 성적산출'}]},
       {id:'p26b', label:'성적 반영·상신', pages:'1187',
        points:['학년·반 {조회} → 학생 클릭 → {2.이전년도성적반영} → {확인}','과목 선택 → 심의일자·오류내용·정정내용·정정사유 → 과목·학생 선택 → {학생부반영}','{3.승인요청} → 기안문 상신 → 최종 결재']}
      ]}
@@ -649,6 +661,7 @@ function renderDetail(){
     if(d.upd) h+=`<div class="updbox"><b>2026.9.11. 기능개선${d.upd.isNew?' · 새 메뉴':''} · ${esc(d.upd.when)}</b><ul>${d.upd.what.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
     if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`)}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
+    if(d.goto&&d.goto.length) h+=`<section class="goto"><h3>다른 파트에서 할 일</h3>${d.goto.map(g=>`<a class="gobtn" href="part${g.p}.html#${g.id}"><span><small>Part ${g.p} ${esc(g.part)} · ${esc(g.sec)}</small><b>${esc(g.label)}</b></span><span class="arr">바로 가기 →</span></a>`).join('')}</section>`;
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;
     const md=(window.MEDIA||{})[n.id];
     if(md&&md.length) h+=`<section class="media"><h3>나이스 조작 화면</h3>${md.map((src,i)=>`<figure><video src="${src}.mp4" poster="${src}.jpg" controls muted loop playsinline autoplay preload="metadata"></video>${md.length>1?`<figcaption>${i+1} / ${md.length}</figcaption>`:''}</figure>`).join('')}</section>`;
@@ -821,6 +834,8 @@ async function start(){
   $('#legend').insertAdjacentHTML('afterbegin',PART.branches.map(b=>`<span><i class="sw" style="background:${BR_VAR[b.id]}"></i>${esc(b.label)}</span>`).join(''));
   if(updNodes().length) $('#legend').insertAdjacentHTML('beforeend','<span><i class="sw upd"></i>9.11 기능개선</span>');
   chips(); curFlow='f1'; drawFlow(); renderDetail(); fit(); focusFlow();
+  const goHash=()=>{ const id=decodeURIComponent(location.hash.slice(1)); if(id&&nodes[id]){ curFlow=null; drawFlow(); select(id,true); } };
+  goHash(); window.addEventListener('hashchange',goHash);
 }
 start();
 </script>

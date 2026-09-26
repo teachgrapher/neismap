@@ -74,6 +74,14 @@ main{display:grid; grid-template-columns:minmax(0,2fr) minmax(340px,1fr); min-he
 .media figure{margin:0; display:flex; flex-direction:column; gap:4px}
 .media video{display:block; width:100%; height:auto; aspect-ratio:16/9; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
 .media figcaption{font-size:12px; color:var(--muted)}
+.goto{margin-top:16px; display:flex; flex-direction:column; gap:8px}
+.goto h3{margin:0; font-size:15px; font-weight:700}
+.gobtn{display:flex; align-items:center; justify-content:space-between; gap:10px; text-decoration:none; color:var(--ink); border:1.5px dashed var(--muted); border-radius:10px; padding:10px 12px; background:var(--surface)}
+.gobtn:hover{border-style:solid; border-color:var(--flow)}
+.gobtn:focus-visible{outline:2px solid var(--flow); outline-offset:2px}
+.gobtn small{display:block; font-size:12px; color:var(--muted)}
+.gobtn b{font-size:14.5px}
+.gobtn .arr{flex:none; font-weight:700; color:var(--flow)}
 .viewer{display:flex; flex-direction:column; flex:1; min-height:0; background:var(--bg)}
 .vhead{display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--line)}
 .vhead .vt{flex:1; min-width:0}
@@ -401,7 +409,8 @@ const PART = {
        points:['규정에 있는 방안만 순위대로 선택, 없으면 ‘미적용’','‘정기시험 배점순’은 서답형 문항 배점에 주의','전공실무과목·능력단위 편성 전공일반과목: ‘능력단위순’ 방안 추가(능력단위 수행영역별 순위는 불가)','전공일반과목도 보통교과처럼 정기시험/수행평가순·정기시험순/수행영역순·정기시험 배점순 선택','{검증}·{타학과복사}·{전과목출력}에도 새 방안 반영'],
        upd:{when:'1·2학년 2026학년도', what:['전문교과 ‘능력단위순’ 동점자 방안 추가','전공일반과목도 보통교과와 같은 방안 선택']}},
       {id:'s5g', label:'전입·편입·위탁학생 성적', exit:true, tag:'Part 3', pages:'1046–1067',
-       points:['전입생 정기시험·수행평가는 전입교 규정대로 환산 입력','학기말 성적 수정은 공문 근거로 {과목추가} → {저장} → {승인요청}','위탁학생: 나이스 쓰는 기관은 타학교 자료 가져오기, 아니면 {과목추가}로 수기 입력','위탁 성적은 소속교 학기말 마감 후에도 입력 가능']},
+       points:['전입생 정기시험·수행평가는 전입교 규정대로 환산 입력','학기말 성적 수정은 공문 근거로 {과목추가} → {저장} → {승인요청}','위탁학생: 나이스 쓰는 기관은 타학교 자료 가져오기, 아니면 {과목추가}로 수기 입력','위탁 성적은 소속교 학기말 마감 후에도 입력 가능'],
+       goto:[{p:3,id:'s2c',part:'학적',sec:'S2',label:'상신·학적반영'},{p:3,id:'s9c',part:'학적',sec:'S9',label:'위탁기관 자료 확인·등록'}]},
       {id:'s5h', label:'결시생 인정점 산출', pages:'1068–1071',
        points:['결시생이 없어도 {인정점산출} 실행','1·2학년은 성적산출기준관리에서 정한 산출기준에 따라 인정점 산출','학생 성명을 누르면 인정점 세부내역','인정점 산출 책임은 교과담당교사, {인정점삭제} 가능'],
        upd:{when:'1·2학년 2026 2학기부터(3학년 2027 1학기)', what:['성적산출기준에 따른 인정점 산출기준 적용']}},
@@ -414,7 +423,8 @@ const PART = {
       {id:'s5l', label:'성적산출 마감·승인', hub:true, pages:'1082–1083', path:'성적-성적처리-성적산출마감관리',
        points:['사용한 정기시험·수행평가 {마감정보저장} 확인 → {성적산출전체마감} → {승인요청}','{승인요청}은 학기말(학생부 반영) 기준에만','결재 후 학생부에 반영되고 {학생/학부모서비스반영}으로 공개','다시 산출하려면 마감 해제 후, 공동교육과정·위탁 성적은 마감 뒤에도 반영 가능']},
       {id:'s5m', label:'과목별 세특', exit:true, tag:'Part 1', pages:'1084–1088',
-       points:['교과담당교사가 모든 교과·모든 학생 대상 입력(2차 인증 필요)','1,500바이트, 학기별 또는 학년 단위, {관찰내용조회}로 관찰기록 불러오기','영재·발명교육은 별도 란, 능력단위는 단위별로','{엑셀내려받기}/{엑셀업로드}, {문자열바꾸기}, 기재유의어 확인']},
+       points:['교과담당교사가 모든 교과·모든 학생 대상 입력(2차 인증 필요)','1,500바이트, 학기별 또는 학년 단위, {관찰내용조회}로 관찰기록 불러오기','영재·발명교육은 별도 란, 능력단위는 단위별로','{엑셀내려받기}/{엑셀업로드}, {문자열바꾸기}, 기재유의어 확인'],
+       goto:[{p:1,id:'s8a',part:'학교업무분장',sec:'S8',label:'교원: 인증 수단 등록'},{p:1,id:'s8b',part:'학교업무분장',sec:'S8',label:'관리자: 승인'}]},
       {id:'s5n', label:'개인별·편입복학 세특', pages:'1089–1092',
        points:['개인별 세특: 한국학교 성적 등 개인별 사항','편입·복학·재입학생은 {현재년도로복사하기} 후 같은 과목에 편성하면 자동 반영(남은 글자 수 차감)']},
       {id:'s5o', label:'과목별 독서활동', pages:'1093–1096',
@@ -671,6 +681,7 @@ function renderDetail(){
     if(d.upd) h+=`<div class="updbox"><b>2026.9.11. 기능개선${d.upd.isNew?' · 새 메뉴':''} · ${esc(d.upd.when)}</b><ul>${d.upd.what.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
     if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`)}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
+    if(d.goto&&d.goto.length) h+=`<section class="goto"><h3>다른 파트에서 할 일</h3>${d.goto.map(g=>`<a class="gobtn" href="part${g.p}.html#${g.id}"><span><small>Part ${g.p} ${esc(g.part)} · ${esc(g.sec)}</small><b>${esc(g.label)}</b></span><span class="arr">바로 가기 →</span></a>`).join('')}</section>`;
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;
     const md=(window.MEDIA||{})[n.id];
     if(md&&md.length) h+=`<section class="media"><h3>나이스 조작 화면</h3>${md.map((src,i)=>`<figure><video src="${src}.mp4" poster="${src}.jpg" controls muted loop playsinline autoplay preload="metadata"></video>${md.length>1?`<figcaption>${i+1} / ${md.length}</figcaption>`:''}</figure>`).join('')}</section>`;
@@ -843,6 +854,8 @@ async function start(){
   $('#legend').insertAdjacentHTML('afterbegin',PART.branches.map(b=>`<span><i class="sw" style="background:${BR_VAR[b.id]}"></i>${esc(b.label)}</span>`).join(''));
   if(updNodes().length) $('#legend').insertAdjacentHTML('beforeend','<span><i class="sw upd"></i>9.11 기능개선</span>');
   chips(); curFlow='f1'; drawFlow(); renderDetail(); fit(); focusFlow();
+  const goHash=()=>{ const id=decodeURIComponent(location.hash.slice(1)); if(id&&nodes[id]){ curFlow=null; drawFlow(); select(id,true); } };
+  goHash(); window.addEventListener('hashchange',goHash);
 }
 start();
 </script>
