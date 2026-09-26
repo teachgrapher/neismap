@@ -1,0 +1,207 @@
+<!doctype html>
+<!-- 나이스 지도 포털: 파트별 마인드맵과 연수자료 PDF로 들어가는 첫 페이지 -->
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>나이스 지도</title>
+<meta name="description" content="2026 하반기 나이스 교무업무 사용자 설명서(고등학교용)를 파트별 마인드맵과 연수자료로 정리한 모음입니다.">
+<meta property="og:title" content="나이스 지도 · 교무업무 마인드맵">
+<meta property="og:description" content="설명서 파트별로 업무 갈래와 처리 순서를 한눈에 보는 마인드맵과 연수자료 PDF">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#EEF2EF; --surface:#FFFFFF; --ink:#1B2524; --muted:#5C6966; --line:#CFD8D4;
+  --a:#0F7B6C; --b:#A86300; --c:#4453A6; --d:#A5452C; --e:#56626C; --flow:#C0266D; --on:#FFFFFF; --upd:#E0A800;
+  --sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --display:"Do Hyeon","IBM Plex Sans KR","Malgun Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#111816; --surface:#1A2320; --ink:#E3ECE8; --muted:#93A29E; --line:#31403C;
+    --a:#43C2AC; --b:#E6A443; --c:#95A3F2; --d:#F0906F; --e:#A9B6C0; --flow:#F2649F; --on:#111816; --upd:#F5C542;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#111816; --surface:#1A2320; --ink:#E3ECE8; --muted:#93A29E; --line:#31403C;
+  --a:#43C2AC; --b:#E6A443; --c:#95A3F2; --d:#F0906F; --e:#A9B6C0; --flow:#F2649F; --on:#111816; --upd:#F5C542;
+}
+*{box-sizing:border-box}
+body{margin:0; background:var(--bg); color:var(--ink); font:15px/1.65 var(--sans);
+  word-break:keep-all; overflow-wrap:normal; hyphens:none}
+a{color:inherit}
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px}
+header.hero{padding:44px 0 26px; border-bottom:1px solid var(--line); margin-bottom:28px}
+.hero .row{display:flex; justify-content:space-between; align-items:flex-start; gap:16px}
+.eyebrow{font-size:12.5px; letter-spacing:.08em; color:var(--muted); font-weight:500}
+h1{margin:6px 0 10px; font:400 52px/1.05 var(--display); letter-spacing:.01em}
+.lead{max-width:680px; margin:0; font-size:16px; color:var(--ink)}
+.themebtn{flex:none; display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); background:var(--surface);
+  color:var(--ink); font:500 13px/1 var(--sans); padding:9px 14px; border-radius:999px; cursor:pointer}
+.themebtn svg{width:15px; height:15px}
+.howto{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:22px 0 0; padding:0; list-style:none; counter-reset:s}
+.howto li{background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:12px 14px 12px 44px; position:relative; font-size:14px}
+.howto li::before{counter-increment:s; content:counter(s); position:absolute; left:14px; top:12px; width:20px; height:20px; border-radius:50%;
+  background:var(--ink); color:var(--bg); font-size:12px; font-weight:700; display:grid; place-items:center}
+.howto b{display:block}
+.notice{display:flex; gap:12px; align-items:center; margin-top:14px; padding:11px 14px; border-radius:12px;
+  background:color-mix(in srgb, var(--upd) 16%, var(--surface)); border:1px solid color-mix(in srgb, var(--upd) 55%, var(--line)); font-size:14px}
+.notice .pill{flex:none; background:var(--upd); color:#241A00; font-weight:800; font-size:12px; border-radius:999px; padding:3px 10px}
+h2.vol{display:flex; align-items:baseline; gap:10px; font:400 26px/1.2 var(--display); margin:34px 0 14px}
+h2.vol small{font:500 13px/1 var(--sans); color:var(--muted)}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:16px}
+.card{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:18px 18px 16px; display:flex; flex-direction:column; gap:10px;
+  transition:border-color .15s, transform .15s}
+.card:hover{border-color:var(--ink)}
+.card .top{display:flex; justify-content:space-between; gap:8px; font-size:12.5px; color:var(--muted)}
+.card .part{font-weight:700; letter-spacing:.06em; color:var(--ink)}
+.card h3{margin:0; font:400 30px/1.1 var(--display)}
+.card h3 a{text-decoration:none}
+.card h3 a:hover{text-decoration:underline; text-underline-offset:4px}
+.card .sum{margin:0; font-size:14px; color:var(--muted)}
+.branches{display:flex; flex-wrap:wrap; gap:6px; margin:0; padding:0; list-style:none}
+.branches li{display:inline-flex; align-items:center; gap:6px; font-size:13px; padding:3px 10px 3px 8px; border:1px solid var(--line); border-radius:999px}
+.branches i{width:9px; height:9px; border-radius:50%}
+.stats{margin:0; font-size:13px; color:var(--muted)}
+.foot{margin-top:auto; display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; padding-top:6px}
+.tags{display:flex; gap:6px; flex-wrap:wrap}
+.upd{background:var(--upd); color:#241A00; font-weight:800; font-size:12px; border-radius:999px; padding:3px 9px}
+.tag{border:1px solid var(--line); color:var(--muted); font-size:12px; border-radius:999px; padding:2px 9px}
+.acts{display:flex; gap:8px; margin-left:auto}
+.btn{display:inline-flex; align-items:center; text-decoration:none; font:500 14px/1 var(--sans); padding:10px 14px; border-radius:10px; border:1px solid var(--line)}
+.btn.go{background:var(--ink); color:var(--bg); border-color:var(--ink)}
+.btn.go:hover{background:var(--flow); border-color:var(--flow); color:var(--on)}
+.btn.pdf:hover{border-color:var(--ink)}
+.btn:focus-visible,.themebtn:focus-visible,.card h3 a:focus-visible{outline:2px solid var(--flow); outline-offset:2px}
+.card.soon{background:transparent; border-style:dashed}
+.card.soon h3{color:var(--muted)}
+footer{margin:44px 0 36px; padding-top:18px; border-top:1px solid var(--line); font-size:13px; color:var(--muted)}
+footer p{margin:4px 0}
+@media (max-width:720px){
+  .wrap{padding:0 16px}
+  header.hero{padding:28px 0 20px}
+  h1{font-size:40px}
+  .howto{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .acts{margin-left:0; width:100%}
+  .acts .btn{flex:1; justify-content:center}
+}
+</style>
+<script>
+try{ const t=localStorage.getItem('nicemap-theme'); if(t) document.documentElement.setAttribute('data-theme',t); }catch(e){}
+</script>
+</head>
+<body>
+<div class="wrap">
+  <header class="hero">
+    <div class="row">
+      <div>
+        <div class="eyebrow">2026 하반기 나이스 교무업무 · 고등학교용</div>
+        <h1>나이스 지도</h1>
+        <p class="lead">나이스 교무업무 사용자 설명서를 파트별 마인드맵으로 그렸어요. 업무가 어느 갈래에 있고 어떤 순서로 이어지는지 한눈에 보고, 항목을 누르면 설명서 내용을 자세히 볼 수 있어요.</p>
+      </div>
+      <button type="button" class="themebtn" id="theme"></button>
+    </div>
+    <ol class="howto">
+      <li><b>파트 고르기</b>아래에서 필요한 업무 파트의 ‘지도 열기’를 눌러요.</li>
+      <li><b>항목 누르기</b>지도에서 업무를 누르면 오른쪽에 메뉴 경로와 처리 방법이 나와요.</li>
+      <li><b>흐름 겹쳐 보기</b>위쪽 흐름 버튼을 누르면 실제 처리 순서가 화살표로 이어져요.</li>
+    </ol>
+    <div class="notice"><span class="pill">9.11</span><span>2026.9.11. 기능개선(성적산출기준관리 신설 등) <b>36곳</b>을 반영했어요. 지도에서 노란 ‘9.11’ 표식이나 ‘9.11 기능개선’ 버튼으로 바뀐 곳만 볼 수 있어요.</span></div>
+  </header>
+
+  <main>
+    <h2 class="vol">1권 <small>학교업무분장 · 교육과정 · 학적 · 개별화교육계획</small></h2>
+    <div class="grid"><article class="card">
+  <div class="top"><span class="part">PART Ⅰ</span><span class="where">1권 · p.3–62</span></div>
+  <h3><a href="part1.html">학교업무분장</a></h3>
+  <p class="sum">학교 업무분장표대로 부서·부서장·부서원을 만들고, 나이스 메뉴와 자료권한을 나눠 주는 파트입니다.</p>
+  <ul class="branches" aria-label="갈래"><li><i style="background:var(--a)"></i>권한 주기</li><li><i style="background:var(--b)"></i>결재선</li><li><i style="background:var(--c)"></i>접속·보안</li></ul>
+  <p class="stats">Section 8 · 업무 30 · 흐름 6 · 허브 교무자료권한 승인관리</p>
+  <div class="foot"><div class="tags"><span class="tag">원문 보기</span></div>
+    <div class="acts"><a class="btn pdf" href="pdf/part1.pdf" download="2026_나이스_학교업무분장_마인드맵_연수자료.pdf">연수자료 PDF</a><a class="btn go" href="part1.html">지도 열기 →</a></div></div>
+</article><article class="card">
+  <div class="top"><span class="part">PART Ⅱ</span><span class="where">1권 · p.65–218</span></div>
+  <h3><a href="part2.html">교육과정</a></h3>
+  <p class="sum">입학생 3개년 교육과정을 짜고, 학년·학기별 편제를 등록한 뒤, 과목을 열고 학생과 교사를 연결해 시간표까지 만드는 파트입니다.</p>
+  <ul class="branches" aria-label="갈래"><li><i style="background:var(--a)"></i>교육과정 짜기</li><li><i style="background:var(--b)"></i>과목·담임 연결</li><li><i style="background:var(--c)"></i>일정·시간표</li></ul>
+  <p class="stats">Section 9 · 업무 48 · 흐름 6 · 허브 수강학생 편성</p>
+  <div class="foot"><div class="tags"><span class="upd">9.11 개선 1곳</span></div>
+    <div class="acts"><a class="btn pdf" href="pdf/part2.pdf" download="2026_나이스_교육과정_마인드맵_연수자료.pdf">연수자료 PDF</a><a class="btn go" href="part2.html">지도 열기 →</a></div></div>
+</article><article class="card">
+  <div class="top"><span class="part">PART Ⅲ</span><span class="where">1권 · p.221–664</span></div>
+  <h3><a href="part3.html">학적</a></h3>
+  <p class="sum">학생이 학교에 들어와서(입학·전입) 반을 옮기고, 매일 출결을 남기고, 다른 곳에서 배우기도 하다가, 전출·자퇴하거나 졸업하기까지의 “학생 신분 기록”을 다루는 파트입니다.</p>
+  <ul class="branches" aria-label="갈래"><li><i style="background:var(--a)"></i>입학·신상·진급</li><li><i style="background:var(--b)"></i>들어오고 나가기</li><li><i style="background:var(--c)"></i>출결</li><li><i style="background:var(--d)"></i>다른 곳에서 배우는 학생</li><li><i style="background:var(--e)"></i>졸업과 그 이후</li></ul>
+  <p class="stats">Section 19 · 업무 80 · 흐름 7 · 허브 일일출결 관리·마감</p>
+  <div class="foot"><div class="tags"><span class="upd">9.11 개선 5곳</span></div>
+    <div class="acts"><a class="btn pdf" href="pdf/part3.pdf" download="2026_나이스_학적_마인드맵_연수자료.pdf">연수자료 PDF</a><a class="btn go" href="part3.html">지도 열기 →</a></div></div>
+</article><article class="card">
+  <div class="top"><span class="part">PART Ⅳ</span><span class="where">1권 · p.667–708</span></div>
+  <h3><a href="part4.html">개별화교육계획</a></h3>
+  <p class="sum">특수교육대상 학생의 기초 정보를 등록하고, 영역을 열어 학생을 편성한 뒤, 학기·월별 개별화교육계획과 평가를 쓰고 마감·결재하는 파트입니다.</p>
+  <ul class="branches" aria-label="갈래"><li><i style="background:var(--a)"></i>준비: 대상자·영역</li><li><i style="background:var(--b)"></i>계획·평가·마감</li><li><i style="background:var(--c)"></i>주고받기·조회</li></ul>
+  <p class="stats">Section 6 · 업무 26 · 흐름 5 · 허브 마감관리(담임)·승인요청</p>
+  <div class="foot"><div class="tags"><span class="tag">원문 보기</span></div>
+    <div class="acts"><a class="btn pdf" href="pdf/part4.pdf" download="2026_나이스_개별화교육계획_마인드맵_연수자료.pdf">연수자료 PDF</a><a class="btn go" href="part4.html">지도 열기 →</a></div></div>
+</article></div>
+    <h2 class="vol">2권 <small>학생생활 · 성적 · 학생부 · 보건 · 입학</small></h2>
+    <div class="grid"><article class="card">
+  <div class="top"><span class="part">PART Ⅴ</span><span class="where">2권 · p.711–845</span></div>
+  <h3><a href="part5.html">학생생활</a></h3>
+  <p class="sum">창의적 체험활동(자율·자치, 진로, 동아리, 봉사), 수상, 자격증·독서·행동특성, 학교폭력 조치와 학부모서비스까지 학교생활기록부의 비교과 영역을 채우는 파트입니다.</p>
+  <ul class="branches" aria-label="갈래"><li><i style="background:var(--a)"></i>창의적 체험활동</li><li><i style="background:var(--b)"></i>수상</li><li><i style="background:var(--c)"></i>자격·독서·행동특성</li><li><i style="background:var(--d)"></i>조치·소통</li></ul>
+  <p class="stats">Section 11 · 업무 41 · 흐름 6 · 허브 학생부 자료 기록</p>
+  <div class="foot"><div class="tags"><span class="upd">9.11 개선 10곳</span></div>
+    <div class="acts"><a class="btn pdf" href="pdf/part5.pdf" download="2026_나이스_학생생활_마인드맵_연수자료.pdf">연수자료 PDF</a><a class="btn go" href="part5.html">지도 열기 →</a></div></div>
+</article><article class="card">
+  <div class="top"><span class="part">PART Ⅵ</span><span class="where">2권 · p.849–1156</span></div>
+  <h3><a href="part6.html">성적</a></h3>
+  <p class="sum">정기시험·수행평가를 준비해 점수를 넣고 마감한 뒤, 학기말에 성취도·석차등급을 산출해 학교생활기록부에 반영하는 파트입니다.</p>
+  <ul class="branches" aria-label="갈래"><li><i style="background:var(--a)"></i>평가 준비</li><li><i style="background:var(--b)"></i>정기시험·수행평가</li><li><i style="background:var(--c)"></i>학기말 성적처리</li><li><i style="background:var(--d)"></i>조회·분석·기록</li></ul>
+  <p class="stats">Section 8 · 업무 53 · 흐름 6 · 허브 성적산출기준관리, 성적산출 마감·승인</p>
+  <div class="foot"><div class="tags"><span class="upd">9.11 개선 17곳</span></div>
+    <div class="acts"><a class="btn pdf" href="pdf/part6.pdf" download="2026_나이스_성적_마인드맵_연수자료.pdf">연수자료 PDF</a><a class="btn go" href="part6.html">지도 열기 →</a></div></div>
+</article><article class="card">
+  <div class="top"><span class="part">PART Ⅶ</span><span class="where">2권 · p.1159–1190</span></div>
+  <h3><a href="part7.html">학생부</a></h3>
+  <p class="sum">나이스 곳곳에 입력한 자료를 학교생활기록부로 반영하고, 검증·대조한 뒤 반별·전체 마감과 결재로 한 해 학생부를 닫는 파트입니다.</p>
+  <ul class="branches" aria-label="갈래"><li><i style="background:var(--a)"></i>반영·검증</li><li><i style="background:var(--b)"></i>조회·마감·결재</li><li><i style="background:var(--c)"></i>정정대장 쓰기</li><li><i style="background:var(--d)"></i>정정대장 관리</li></ul>
+  <p class="stats">장 13 · 업무 42 · 흐름 6 · 허브 4단 결재 상신</p>
+  <div class="foot"><div class="tags"><span class="upd">9.11 개선 3곳</span><span class="tag">원문 보기</span></div>
+    <div class="acts"><a class="btn pdf" href="pdf/part7.pdf" download="2026_나이스_학생부_마인드맵_연수자료.pdf">연수자료 PDF</a><a class="btn go" href="part7.html">지도 열기 →</a></div></div>
+</article><article class="card">
+  <div class="top"><span class="part">PART Ⅷ</span><span class="where">2권 · p.1193–1224</span></div>
+  <h3><a href="part8.html">보건</a></h3>
+  <p class="sum">학생 건강기록부에 인적사항·신체발달·신체능력·건강검진·별도검사를 입력하고, 학년말에 자료검증·마감·결재로 닫은 뒤 오류는 정정대장으로 고치는 파트입니다.</p>
+  <ul class="branches" aria-label="갈래"><li><i style="background:var(--a)"></i>건강기록 입력</li><li><i style="background:var(--b)"></i>조회·마감</li><li><i style="background:var(--c)"></i>건강기록 정정</li><li><i style="background:var(--d)"></i>감염병 관리</li></ul>
+  <p class="stats">장 11 · 업무 34 · 흐름 6 · 허브 자료검증·반별 마감</p>
+  <div class="foot"><div class="tags"><span class="tag">원문 보기</span></div>
+    <div class="acts"><a class="btn pdf" href="pdf/part8.pdf" download="2026_나이스_보건_마인드맵_연수자료.pdf">연수자료 PDF</a><a class="btn go" href="part8.html">지도 열기 →</a></div></div>
+</article><article class="card soon"><div class="top"><span class="part">PART Ⅸ</span><span class="where">2권 · 준비 중</span></div><h3>입학</h3><p class="sum">마인드맵을 만들고 있어요. 완성되면 이곳에서 열 수 있어요.</p></article></div>
+  </main>
+
+  <footer>
+    <p>나이스(NEIS) 공식 자료가 아니에요. 2026년 하반기 나이스 교무업무 사용자 설명서(고등학교용)와 2026.9.11. 기능개선 안내 자료를 바탕으로 연수용으로 다시 정리했어요.</p>
+    <p>실제 화면과 절차는 나이스와 최신 설명서를 함께 확인하세요.</p>
+  </footer>
+</div>
+<script>
+const ROOT=document.documentElement, btn=document.getElementById('theme');
+const ICON={dark:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>',
+  light:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'};
+function eff(){ const t=ROOT.getAttribute('data-theme'); return t|| (matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'); }
+function label(){ const next=eff()==='dark'?'light':'dark'; btn.innerHTML=ICON[next]+(next==='dark'?'어둡게':'밝게');
+  btn.setAttribute('aria-label',next==='dark'?'다크 모드로 바꾸기':'라이트 모드로 바꾸기'); }
+btn.onclick=()=>{ const t=eff()==='dark'?'light':'dark'; ROOT.setAttribute('data-theme',t); try{localStorage.setItem('nicemap-theme',t);}catch(e){} label(); };
+try{ matchMedia('(prefers-color-scheme: dark)').addEventListener('change',label); }catch(e){}
+label();
+</script>
+</body>
+</html>
