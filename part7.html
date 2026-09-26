@@ -69,6 +69,11 @@ main{display:grid; grid-template-columns:minmax(0,2fr) minmax(340px,1fr); min-he
   border-radius:8px; padding:9px 14px; font:700 14px/1 var(--sans);
 }
 .srcbtn span{font:500 12.5px/1 var(--mono); color:var(--muted)}
+.media{margin-top:18px; display:flex; flex-direction:column; gap:12px}
+.media h3{margin:0; font-size:16px; font-weight:700}
+.media figure{margin:0; display:flex; flex-direction:column; gap:4px}
+.media video{display:block; width:100%; height:auto; aspect-ratio:16/9; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
+.media figcaption{font-size:12px; color:var(--muted)}
 .viewer{display:flex; flex-direction:column; flex:1; min-height:0; background:var(--bg)}
 .vhead{display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--surface); border-bottom:1px solid var(--line)}
 .vhead .vt{flex:1; min-width:0}
@@ -645,6 +650,8 @@ function renderDetail(){
     if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`)}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;
+    const md=(window.MEDIA||{})[n.id];
+    if(md&&md.length) h+=`<section class="media"><h3>나이스 조작 화면</h3>${md.map((src,i)=>`<figure><video src="${src}.mp4" poster="${src}.jpg" controls muted loop playsinline autoplay preload="metadata"></video>${md.length>1?`<figcaption>${i+1} / ${md.length}</figcaption>`:''}</figure>`).join('')}</section>`;
   }
   box.innerHTML=h;
   const sb=$('#srcbtn'); if(sb) sb.onclick=()=>openViewer(n);
