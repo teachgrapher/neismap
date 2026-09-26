@@ -74,6 +74,7 @@ main{display:grid; grid-template-columns:minmax(0,2fr) minmax(340px,1fr); min-he
 .media figure{margin:0; display:flex; flex-direction:column; gap:4px}
 .media video{display:block; width:100%; height:auto; aspect-ratio:16/9; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
 .media figcaption{font-size:12px; color:var(--muted)}
+.yr{display:inline-block; font-size:12px; font-weight:700; color:var(--ink); background:color-mix(in srgb, var(--c) 18%, var(--surface)); border:1px solid color-mix(in srgb, var(--c) 45%, var(--line)); border-radius:6px; padding:0 6px; margin-right:2px}
 .goto{margin-top:16px; display:flex; flex-direction:column; gap:8px}
 .goto h3{margin:0; font-size:15px; font-weight:700}
 .gobtn{display:flex; align-items:center; justify-content:space-between; gap:10px; text-decoration:none; color:var(--ink); border:1.5px dashed var(--muted); border-radius:10px; padding:10px 12px; background:var(--surface)}
@@ -352,7 +353,7 @@ const PART = {
       {id:'s2c', label:'상신·학적반영', pages:'276–283, 288–291',
        points:['상신 메뉴에서 {결재자지정} → {상신}','학적반영에서 자료 선택 → {학적반영}','당일 처리가 급하면 {기본학적}만 먼저 받고 나머지는 나중에 {자료이관}','추가 도착 자료를 {자료이관}하면 전입 후 새로 쓴 자료는 지워짐','{반영일자수정}하면 해당 월 출결 재마감']},
       {id:'s2d', label:'전입생 수강과목 편성', exit:true, tag:'Part 2', pages:'284–287',
-       points:['학적반영 후 {수강과목편성}을 하지 않으면 출결·성적 처리 불가','1·2학년은 전출교 과목과 매칭(과목 출석률)','매칭 과목이 없으면 ‘비매칭과목 출결 결과 산출’','복학·재입학·귀국 등은 ‘해외귀국/복학/학기중 신입학 인정출결산출’'],
+       points:['학적반영 후 {수강과목편성}을 하지 않으면 출결·성적 처리 불가','〔2026학년도 기준〕 1·2학년(2022 개정)은 전출교 과목과 매칭(과목 출석률), 3학년은 다른 편성 메뉴에서도 가능','〔2027학년도부터〕 1·2·3학년 모두 전출교 과목과 매칭','매칭 과목이 없으면 ‘비매칭과목 출결 결과 산출’','복학·재입학·귀국 등은 ‘해외귀국/복학/학기중 신입학 인정출결산출’'],
        goto:[{p:2,id:'s5f',part:'교육과정',sec:'S5',label:'타학년·전입생 수강과목'}]},
       {id:'s2e', label:'이전 자료 관리', pages:'292–309', path:'학적-전입관리-전입자료관리',
        points:['정기시험·수행평가: {이전학교성적보기} 후 전입교 규정대로 환산 입력','학기말 성적 수정은 공문 근거로 {과목추가} → {승인요청}','세특·독서활동: {이전학교자료보기} → {이전학교자료가져오기}','이전 출결자료 수정, 귀국·탈북 편입생 이전 인정학점(학기당 최대 32)']},
@@ -799,7 +800,7 @@ function renderDetail(){
     if(d.pages) rows.push(['원문',`p.${esc(d.pages)}`]);
     if(rows.length) h+=`<dl class="meta">${rows.map(r=>`<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join('')}</dl>`;
     if(d.upd) h+=`<div class="updbox"><b>2026.9.11. 기능개선${d.upd.isNew?' · 새 메뉴':''} · ${esc(d.upd.when)}</b><ul>${d.upd.what.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
-    if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`)}</li>`).join('')}</ul>`;
+    if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`).replace(/^〔([^〕]+)〕\s*/,'<span class="yr">$1</span> ')}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
     if(d.goto&&d.goto.length) h+=`<section class="goto"><h3>다른 파트에서 할 일</h3>${d.goto.map(g=>`<a class="gobtn" href="part${g.p}.html#${g.id}"><span><small>Part ${g.p} ${esc(g.part)} · ${esc(g.sec)}</small><b>${esc(g.label)}</b></span><span class="arr">바로 가기 →</span></a>`).join('')}</section>`;
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;

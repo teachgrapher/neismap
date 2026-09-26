@@ -74,6 +74,7 @@ main{display:grid; grid-template-columns:minmax(0,2fr) minmax(340px,1fr); min-he
 .media figure{margin:0; display:flex; flex-direction:column; gap:4px}
 .media video{display:block; width:100%; height:auto; aspect-ratio:16/9; border:1px solid var(--line); border-radius:8px; background:var(--surface)}
 .media figcaption{font-size:12px; color:var(--muted)}
+.yr{display:inline-block; font-size:12px; font-weight:700; color:var(--ink); background:color-mix(in srgb, var(--c) 18%, var(--surface)); border:1px solid color-mix(in srgb, var(--c) 45%, var(--line)); border-radius:6px; padding:0 6px; margin-right:2px}
 .goto{margin-top:16px; display:flex; flex-direction:column; gap:8px}
 .goto h3{margin:0; font-size:15px; font-weight:700}
 .gobtn{display:flex; align-items:center; justify-content:space-between; gap:10px; text-decoration:none; color:var(--ink); border:1.5px dashed var(--muted); border-radius:10px; padding:10px 12px; background:var(--surface)}
@@ -679,7 +680,7 @@ function renderDetail(){
     if(d.pages) rows.push(['원문',`p.${esc(d.pages)}`]);
     if(rows.length) h+=`<dl class="meta">${rows.map(r=>`<dt>${r[0]}</dt><dd>${r[1]}</dd>`).join('')}</dl>`;
     if(d.upd) h+=`<div class="updbox"><b>2026.9.11. 기능개선${d.upd.isNew?' · 새 메뉴':''} · ${esc(d.upd.when)}</b><ul>${d.upd.what.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`;
-    if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`)}</li>`).join('')}</ul>`;
+    if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`).replace(/^〔([^〕]+)〕\s*/,'<span class="yr">$1</span> ')}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
     if(d.goto&&d.goto.length) h+=`<section class="goto"><h3>다른 파트에서 할 일</h3>${d.goto.map(g=>`<a class="gobtn" href="part${g.p}.html#${g.id}"><span><small>Part ${g.p} ${esc(g.part)} · ${esc(g.sec)}</small><b>${esc(g.label)}</b></span><span class="arr">바로 가기 →</span></a>`).join('')}</section>`;
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;
