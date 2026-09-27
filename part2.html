@@ -281,6 +281,7 @@ rect.updbg{fill:var(--upd)} text.updtx{fill:#241A00; font-size:10.5px; font-weig
 </div>
 
 <script>window.MEDIA={"s1a": ["media/2/s1a_1"], "s1b": ["media/2/s1b_1", "media/2/s1b_2"], "s1c": ["media/2/s1c_1", "media/2/s1c_2"], "s1d": ["media/2/s1d_1"], "s1e": ["media/2/s1e_1"], "s1f": ["media/2/s1f_1"], "s1g": ["media/2/s1g_1"], "s2a": ["media/2/s2a_1"], "s3a": ["media/2/s3a_1"], "s3b": ["media/2/s3b_1"], "s3c": ["media/2/s3c_1"], "s3d": ["media/2/s3d_1"], "s4a": ["media/2/s4a_1"], "s4b": ["media/2/s4b_1"], "s4c": ["media/2/s4c_1"], "s4d": ["media/2/s4d_1"], "s4f": ["media/2/s4f_1"], "s4g": ["media/2/s4g_1"], "s4i": ["media/2/s4i_1"], "s5a": ["media/2/s5a_1"], "s5b": ["media/2/s5b_1"], "s5c": ["media/2/s5c_1", "media/2/s5c_2", "media/2/s5c_3"], "s5d": ["media/2/s5d_1"], "s5e": ["media/2/s5e_1"], "s5f": ["media/2/s5f_1"], "s5g": ["media/2/s5g_1", "media/2/s5g_2", "media/2/s5g_3", "media/2/s5g_4", "media/2/s5g_5", "media/2/s5g_6", "media/2/s5g_7"], "s5h": ["media/2/s5h_1", "media/2/s5h_2"], "s6a": ["media/2/s6a_1"], "s6b": ["media/2/s6b_1"], "s6c": ["media/2/s6c_1", "media/2/s6c_2", "media/2/s6c_3"], "s6d": ["media/2/s6d_1"], "s6e": ["media/2/s6e_1"], "s7a": ["media/2/s7a_1", "media/2/s7a_2", "media/2/s7a_3", "media/2/s7a_4"], "s7b": ["media/2/s7b_1"], "s7c": ["media/2/s7c_1", "media/2/s7c_2", "media/2/s7c_3"], "s7d": ["media/2/s7d_1", "media/2/s7d_2", "media/2/s7d_3", "media/2/s7d_4"], "s7e": ["media/2/s7e_1"]};</script>
+<script src="timeline-links.js"></script>
 <script>
 // ───── 데이터: 이 객체만 바꾸면 다른 파트도 같은 틀로 그릴 수 있음 ─────
 const PART = {
@@ -666,6 +667,7 @@ function renderDetail(){
     if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`).replace(/^〔([^〕]+)〕\s*/,'<span class="yr">$1</span> ')}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
     if(d.goto&&d.goto.length) h+=`<section class="goto"><h3>다른 파트에서 할 일</h3>${d.goto.map(g=>`<a class="gobtn" href="part${g.p}.html#${g.id}"><span><small>Part ${g.p} ${esc(g.part)} · ${esc(g.sec)}</small><b>${esc(g.label)}</b></span><span class="arr">바로 가기 →</span></a>`).join('')}</section>`;
+    h+=window.tlBlock?tlBlock(n):'';
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;
     const md=(window.MEDIA||{})[n.id];
     if(md&&md.length) h+=`<section class="media"><h3>나이스 조작 화면</h3>${md.map((src,i)=>`<figure><video src="${src}.mp4" poster="${src}.jpg" controls muted loop playsinline autoplay preload="metadata"></video>${md.length>1?`<figcaption>${i+1} / ${md.length}</figcaption>`:''}</figure>`).join('')}</section>`;

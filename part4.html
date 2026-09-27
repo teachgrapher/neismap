@@ -280,6 +280,7 @@ rect.updbg{fill:var(--upd)} text.updtx{fill:#241A00; font-size:10.5px; font-weig
   </main>
 </div>
 
+<script src="timeline-links.js"></script>
 <script>
 // ───── 데이터: 이 객체만 바꾸면 다른 파트도 같은 틀로 그릴 수 있음 ─────
 const PART = {
@@ -579,6 +580,7 @@ function renderDetail(){
     if(d.points) h+=`<ul>${d.points.map(p=>`<li>${esc(p).replace(/(\[[^\]]+\])/g,m=>`<span class="path">${wbrPath(m)}</span>`).replace(/^〔([^〕]+)〕\s*/,'<span class="yr">$1</span> ')}</li>`).join('')}</ul>`;
     if(n.type==='section') h+=`<ul style="margin-top:10px;list-style:none;padding:0">${d.leaves.map(l=>`<li style="color:var(--muted)">› ${esc(l.label)}</li>`).join('')}</ul>`;
     if(d.goto&&d.goto.length) h+=`<section class="goto"><h3>다른 파트에서 할 일</h3>${d.goto.map(g=>`<a class="gobtn" href="part${g.p}.html#${g.id}"><span><small>Part ${g.p} ${esc(g.part)} · ${esc(g.sec)}</small><b>${esc(g.label)}</b></span><span class="arr">바로 가기 →</span></a>`).join('')}</section>`;
+    h+=window.tlBlock?tlBlock(n):'';
     if(d.pages&&!window.NO_PAGES) h+=`<button type="button" class="srcbtn" id="srcbtn">매뉴얼 원문 보기 <span>p.${esc(d.pages)}</span></button>`;
     const md=(window.MEDIA||{})[n.id];
     if(md&&md.length) h+=`<section class="media"><h3>나이스 조작 화면</h3>${md.map((src,i)=>`<figure><video src="${src}.mp4" poster="${src}.jpg" controls muted loop playsinline autoplay preload="metadata"></video>${md.length>1?`<figcaption>${i+1} / ${md.length}</figcaption>`:''}</figure>`).join('')}</section>`;
